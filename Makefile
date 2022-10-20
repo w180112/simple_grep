@@ -20,8 +20,7 @@ all: $(TARGET)
 # 	Must use \tab key after new line
 ######################################
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) -Llib/libutil $(OBJ) -o $(TARGET) \
-	-static -lutil
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 ######################################
 # Clean 
 ######################################
