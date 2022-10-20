@@ -27,7 +27,7 @@ int test_read_and_check()
     list_second = res1_list->next;
     list_second->res = "here is an apple.\n";
     
-    struct grep_res *res1 = read_and_check("test_file.dat", " *s");
+    struct grep_res *res1 = read_and_check("test_file.dat", "* is*");
     struct grep_res *res_cur = res1_list, *test_cur = res1;
     for(;test_cur!=NULL&&res_cur!=NULL; test_cur=test_cur->next, res_cur=res_cur->next) {
         if (strncmp(test_cur->res, res_cur->res, strlen(test_cur->res)) != 0) {

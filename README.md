@@ -15,6 +15,10 @@
     this is a book.
     12343567a
     here is an apple.
+    the@the:~/grep$ ./bin/grep ./test/test_file.dat *\ a*p*e
+    line found: here is an apple.
+    the@the:~/grep$ ./bin/grep ./test/test_file.dat *\ a*p*
+    line found: here is an apple.
     the@the:~/grep$ make clean
     rm -f src/grep.o src/filter.o bin/grep
     the@the:~/grep$ 

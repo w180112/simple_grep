@@ -7,6 +7,13 @@
 BOOL check_exist(char *line, size_t len, char *check_str);
 void res_append(struct grep_res **head, char *res_str);
 
+/**
+ * @brief read given file and check if grepped
+ * 
+ * @param filename
+ * @param grep_str 
+ * @return struct grep_res*, the result linked list
+ */
 struct grep_res *read_and_check(const char *filename, char *grep_str) {
     FILE *fp;
     char * line = NULL;
@@ -33,15 +40,42 @@ struct grep_res *read_and_check(const char *filename, char *grep_str) {
     return res_list;
 }
 
+/**
+ * @brief check each line is contained grep string or not.
+ * 
+ * @param line, each line in file
+ * @param len, length of line
+ * @param check_str, grep string
+ * @return BOOL, TURE when found
+ */
 BOOL check_exist(char *line, size_t len, char *check_str)
 {
     for(int i=0; i<len; i++) {
         BOOL is_grepped = TRUE;
-        for(int j=0; j<strlen(check_str); j++) {
-            if (check_str[j] != '*' && check_str[j] != line[i+j]) {
+        int j=0, k=0;
+        for(;;) {
+            if (k >= strlen(line)) {
                 is_grepped = FALSE;
                 break;
             }
+            if (j >= strlen(check_str))
+                break;
+                
+            if (check_str[j] != '*' && check_str[j] != line[i+k]) {
+                is_grepped = FALSE;
+                break;
+            }
+            else if (check_str[j] != '*') {
+                j++;
+                k++;
+            }
+            else if (check_str[j] == '*' && j < strlen(check_str) - 1 && check_str[j+1] == line[i+k]) {
+                j++;
+            }
+            else if (check_str[j] == '*' && j == strlen(check_str) - 1) 
+                break;
+            else 
+                k++;
         }
         if (is_grepped == TRUE)
             return TRUE;
@@ -50,6 +84,12 @@ BOOL check_exist(char *line, size_t len, char *check_str)
     return FALSE;
 }
 
+/**
+ * @brief append grep result to linked list
+ * 
+ * @param head, pointer of pointer of linked list
+ * @param res_str, found string
+ */
 void res_append(struct grep_res **head, char *res_str)
 {
     struct grep_res **indirect = head;
