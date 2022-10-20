@@ -1,8 +1,9 @@
 # Simple grep utility
 
 ## How to use:
-1. Type make command to compile.
-2. Type ./bin/grep <file> <filter string>, e.g.
+1. Type git submodule update --init --recursive
+2. Type make command to compile.
+3. Type ./bin/grep <file> <filter string>, e.g.
     ```bash=
     the@the:~/grep$ make
     gcc -Ilib/libutil -Wall -fPIC   -c -o src/grep.o src/grep.c
@@ -23,7 +24,7 @@
     rm -f src/grep.o src/filter.o bin/grep
     the@the:~/grep$ 
     ```
-2. Type make clean to remove all binary.
+4. Type make clean to remove all binary.
 
 ## Unit test:
 1. cd test && make
